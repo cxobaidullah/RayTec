@@ -7,10 +7,12 @@ import store from './src/app/store';
 import AuthRouter from './src/router/AuthRouter';
 import HomeRouter from './src/router/HomeRouter';
 import SplashScreen from './src/views/splash/SplashScreen';
+import AdminRoute from './src/router/AdminRoute';
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
-
-const App: React.FC = () => {
+LogBox.ignoreAllLogs()
+const App = () => {
     return (
         <Provider store={store}>
             <NavigationContainer>
@@ -28,6 +30,11 @@ const App: React.FC = () => {
                     <Stack.Screen
                         name='HomeRouter'
                         component={HomeRouter}
+                        options={{ headerShown: false }}
+                    />
+                     <Stack.Screen
+                        name='AdminRoute'
+                        component={AdminRoute}
                         options={{ headerShown: false }}
                     />
                 </Stack.Navigator>

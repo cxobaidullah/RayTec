@@ -30,6 +30,13 @@ target 'RayTec' do
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseDatabase', :modular_headers => true  # Ensure modular headers for FirebaseDatabase
+  pod 'FirebaseFirestore', :modular_headers => true
+  pod 'FirebaseFirestoreInternal', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
+  pod 'FirebaseAppCheckInterop', :modular_headers => true # Also, specify for FirebaseAppCheckInterop if needed
+  pod 'leveldb-library', :modular_headers => true # Also, specify for leveldb-library if needed
+
   # Flags change depending on the env values.
   flags = get_default_flags()
 

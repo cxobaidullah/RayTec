@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native'
-import react, { useState } from 'react'
+import { CommonActions, useNavigation, useRoute } from '@react-navigation/native'
+import react, { useEffect, useState } from 'react'
 import {
     ActivityIndicator,
     Text,
@@ -14,51 +14,75 @@ import Spacing from '../../components/Spacing'
 import { Post } from '../../network/network'
 import Style from '../../style/Style'
 import { validateEmail, validatePassword } from '../../utils/common'
+import { err } from 'react-native-svg/lib/typescript/xml'
+import { getAuth } from '@react-native-firebase/auth'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../app/userSlice'
+import TopBar from '../../components/TopBar'
 
 export default LoginScreen = ({}) => {
     const navigation = useNavigation()
-
+    const route = useRoute()
     const [validation, setValidation] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState()
     const [error, setError] = useState()
-
+    const[userRole ,setUserRole]=useState('')
+    const dispatch = useDispatch()
+    useEffect(() => {
+        handleRoutes()
+    }, [route?.params])
+    const handleRoutes =() =>{
+        setUserRole(route?.params.role)
+        console.log('first', route?.params.role)
+    }
     const onLogin = ({}) => {
-        navigation.navigate('HomeTabs')
-        return
+       
         if (!validateEmail(email) || !validatePassword(password)) {
             setValidation(true)
             return
         }
 
-        console.log('Here')
-
         setValidation(false)
         setError(false)
         setLoading(true)
 
-        const endpoint = '/login'
-        const data = {
-            email,
-            password,
-        }
-        Post('/login', data)
-            .then((response) => {
-                setLoading(false)
-                console.log('Response', response)
-            })
-            .catch((error) => {
-                setLoading(false)
-                if (error.response) {
-                    console.log(error.response.data)
-                    setError(error.response.data.message)
-                }
-            })
+    
+        getAuth()
+        .signInWithEmailAndPassword(email, password)
+        .then((userCredentials) => {
+            let currentUser = {
+                photoURL: userCredentials.user.photoURL,
+                displayName: userCredentials.user.displayName,
+            }
+
+            dispatch(setUser(currentUser))
+            if(userRole ==='User'){
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'HomeRouter' }],
+                })
+            }else{
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'AdminRoute' }],
+                })
+            }
+          
+        })
+        .catch((error) => {
+            setLoading(false)
+            console.log('error', error.message)
+            setError(error.message)
+        })
     }
+
+   
 
     return (
         <View style={[Style.container, Style.centerJustify]}>
+        
             <View style={Style.hPadding}>
                 <InputField
                     label={'Email'}
@@ -90,18 +114,8 @@ export default LoginScreen = ({}) => {
                             : null
                     }
                 />
-                <Spacing val={10} />
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('ForgotPassword')
-                    }}
-                    style={{ alignItems: 'flex-end' }}
-                >
-                    <Text style={[Style.label, Style.colorSecondary]}>
-                        Forgot Password
-                    </Text>
-                </TouchableOpacity>
-                <Spacing val={10} />
+                <Spacing val={20} />
+    
                 {loading && (
                     <>
                         <ActivityIndicator animating={true} />
@@ -118,7 +132,9 @@ export default LoginScreen = ({}) => {
                 <PrimaryButton onPress={onLogin}>Login</PrimaryButton>
                 <Spacing val={20} />
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Signup')}
+                    onPress={() => navigation.navigate('Signup',{
+                        role:userRole
+                    })}
                     style={{ alignItems: 'center' }}
                 >
                     <Text>

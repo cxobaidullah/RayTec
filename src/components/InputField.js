@@ -11,13 +11,14 @@ export default InputField = ({
     keyboard,
     onChangeText,
     error,
+    styles,
     ...rest
 }) => {
     return (
         <>
-            <Text style={[Style.label, Style.colorSecondary]}>{label}</Text>
+            <Text style={[Style.label, Style.colorSecondary,]}>{label}</Text>
             <Spacing />
-            <View style={style.container}>
+            <View style={[style.container,styles]}>
                 <TextInput
                     placeholder={placeholder}
                     value={value}
@@ -42,7 +43,7 @@ const style = StyleSheet.create({
         borderColor: Color.secondary,
         borderWidth: 2,
         borderRadius: 10,
-        height: 40,
+        height: 48,
         justifyContent: 'center',
         paddingHorizontal: 10,
     },

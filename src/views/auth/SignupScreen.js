@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native'
-import react, { useState } from 'react'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import react, { useEffect, useState } from 'react'
 import {
     ActivityIndicator,
     Text,
@@ -14,18 +14,31 @@ import Spacing from '../../components/Spacing'
 import { Post } from '../../network/network'
 import Style from '../../style/Style'
 import { validateEmail, validatePassword } from '../../utils/common'
-
+import auth, { getAuth } from '@react-native-firebase/auth'
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../app/userSlice'
+import { addDataToDb, storeUserData } from '../../network/firbaseNetwork'
 export default SignupScreen = ({}) => {
     const navigation = useNavigation()
-
+    const route = useRoute()
     const [validation, setValidation] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState()
     const [error, setError] = useState()
+    const [userRole, setUserRole] = useState('')
+    const dispatch = useDispatch()
+    useEffect(() => {
+        handleRoutes()
+    }, [route?.params])
+    const handleRoutes =() =>{
+        setUserRole(route?.params.role)
+        console.log('first', route?.params.role)
+    }
 
-    const onLogin = ({}) => {
+    const register = () => {
         if (
             !validateEmail(email) ||
             !validatePassword(password) ||
@@ -40,23 +53,44 @@ export default SignupScreen = ({}) => {
         setValidation(false)
         setError(false)
         setLoading(true)
+        getAuth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(async (userCredentials) => {
+                const user = userCredentials.user.updateProfile({
+                    displayName: name,
+                })
 
-        const endpoint = '/login'
-        const data = {
-            email,
-            password,
-        }
-        Post('/login', data)
-            .then((response) => {
+                let currentUser = {
+                    photoURL: null,
+                    displayName: name,
+                }
+                const uid =getAuth()?.currentUser?.uid
+                 storeUserData(uid, {
+                    email: email,
+                    role: userRole,
+                    uid: getAuth()?.currentUser?.uid,
+                    name:name
+                })
+                dispatch(setUser(currentUser))
                 setLoading(false)
-                console.log('Response', response)
+
+                if(userRole ==='User'){
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'HomeRouter' }],
+                    })
+                }else{
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'AdminRoute' }],
+                    })
+                }
             })
             .catch((error) => {
                 setLoading(false)
-                if (error.response) {
-                    console.log(error.response.data)
-                    setError(error.response.data.message)
-                }
+
+                setError(error.message)
+                console.log('error', error.message)
             })
     }
 
@@ -122,12 +156,11 @@ export default SignupScreen = ({}) => {
                     </>
                 )}
 
-                <PrimaryButton onPress={onLogin}>Register</PrimaryButton>
+                <PrimaryButton onPress={register}>Sign up</PrimaryButton>
                 <Spacing val={20} />
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
-                    style={{ alignItems: 'center' }}
-                >
+                    style={{ alignItems: 'center' }}>
                     <Text>
                         <Text style={[Style.label, Style.colorPrimary]}>
                             Already an account?{' '}
@@ -137,8 +170,7 @@ export default SignupScreen = ({}) => {
                                 Style.label,
                                 Style.colorPrimary,
                                 Style.fontBold,
-                            ]}
-                        >
+                            ]}>
                             Login
                         </Text>
                     </Text>
