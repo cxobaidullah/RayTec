@@ -150,4 +150,7 @@ export default Style = StyleSheet.create({
     label14: {
         fontSize: 14,
     },
+    label18: {
+        fontSize: 18,
+    },
 })

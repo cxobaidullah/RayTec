@@ -6,4 +6,5 @@ export default Color = {
     red: 'red',
     background: '#A4AAC9',
     inputBackground: '#F5F5F5',
+    headerColor:'#4c669f'
 }

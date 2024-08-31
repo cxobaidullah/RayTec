@@ -6,13 +6,6 @@ import { StyleSheet, View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-const styles = StyleSheet.create({
-    tabBar: {
-        // marginBottom: 10, // Adjust the bottom margin here
-        paddingBottom:10
-    },
-});
-
 export default AdminHomeTabs = () => {
     return (
         <Tab.Navigator
@@ -53,3 +46,9 @@ export default AdminHomeTabs = () => {
         </Tab.Navigator>
     );
 };
+const styles = StyleSheet.create({
+    tabBar: {
+        // marginBottom: 10, // Adjust the bottom margin here
+        paddingBottom:10
+    },
+});

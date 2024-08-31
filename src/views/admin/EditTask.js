@@ -20,8 +20,11 @@ import InputField from '../../components/InputField'
 import Spacing from '../../components/Spacing'
 import ErrorLabel from '../../components/ErrorLabel'
 import PrimaryButton from '../../components/PrimaryButton'
- import {
+// import CustomDropDown from '../../components/CustomDropDown'
+import {
     validateDate,
+    validateEmail,
+    validatePassword,
     validateTextField,
 } from '../../utils/common'
 import TextField from '../../components/TextField'
@@ -29,19 +32,21 @@ import CustomDropDown from '../../components/CustomDropDown'
 import CustomDateInput from '../../components/CustomDateInput'
 import {
     addDataToDb,
+    getDataFromDb,
     getUsersByRole,
     updateDataInDb,
 } from '../../network/firbaseNetwork'
-
+import moment from 'moment'
 import Color from '../../style/Color'
 
-const AdminHome = () => {
+const EditTask = () => {
     const navigation = useNavigation()
     const route = useRoute()
     const [validation, setValidation] = useState(false)
     const [title, setTitle] = useState('')
     const [loading, setLoading] = useState()
     const [error, setError] = useState()
+    const [userRole, setUserRole] = useState('')
     const [priority, setPriority] = useState()
     const [members, setMember] = useState([])
     const [assignedMember, setAssignedMember] = useState({})
@@ -68,7 +73,7 @@ const AdminHome = () => {
     )
 
     const initialValues = () => {
-      
+        console.log('Screen bluuer===========>');
         setTitle(''), 
         setDescribeSelf('')
         setPriority('')
@@ -162,6 +167,7 @@ const AdminHome = () => {
             setPriority('')
             setAssignedMember(null)
             Alert.alert('Task Updated Successfully')
+            navigation.goBack()
         } catch (err) {
             console.log('err====>', err)
             setError('Failed to create task. Please try again.')
@@ -206,7 +212,13 @@ const AdminHome = () => {
                     {' '}
                     {!tasks ? 'Create New Task' : 'Update Task'}
                 </Text>
-           
+                <TouchableOpacity
+                onPress={() =>{
+                    navigation.goBack()
+                }}
+                style={styles.filterButton}>
+                <Text style={styles.filterButtonText}>Go Back</Text>
+            </TouchableOpacity>
             </View>
             <Spacing val={50} />
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -314,7 +326,7 @@ const AdminHome = () => {
     )
 }
 
-export default AdminHome
+export default EditTask
 
 const styles = StyleSheet.create({
     headerContainer: {
@@ -340,5 +352,14 @@ const styles = StyleSheet.create({
         borderWidth: null,
         borderColor: null,
         backgroundColor: Color.inputBackground,
+    },
+    filterButton: {
+        backgroundColor: '#ffffff',
+        padding: 8,
+        borderRadius: 5,
+    },
+    filterButtonText: {
+        color: '#4c669f',
+        fontWeight: '600',
     },
 })

@@ -1,30 +1,27 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
 import {
+    Alert,
+    FlatList,
     StyleSheet,
     Text,
     View,
-    FlatList,
-    Alert,
     Modal,
     TouchableOpacity,
 } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import {
-    deleteDataFromDb,
     getDataFromDb,
     getUsersByRole,
+    updateDataInDb,
 } from '../../network/firbaseNetwork'
-import TaskListItem from './components/TaskListItem'
-import CustomDateInput from '../../components/CustomDateInput'
-import CustomDropDown from '../../components/CustomDropDown'
-import { validateDate } from '../../utils/common'
-import PrimaryButton from '../../components/PrimaryButton'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import TaskListItem from '../admin/components/TaskListItem'
 import { getAuth } from '@react-native-firebase/auth'
-import Color from '../../style/Color'
-import Style from '../../style/Style'
+import PrimaryButton from '../../components/PrimaryButton'
+import { validateDate } from '../../utils/common'
 import HeaderComponent from '../../components/HeaderComponent'
+import Style from '../../style/Style'
 
-const AdminTask = () => {
+const UserTasks = () => {
     const [tasks, setTasks] = useState([])
     const [loading, setLoading] = useState()
     const [error, setError] = useState()
@@ -52,11 +49,16 @@ const AdminTask = () => {
         try {
             const data = await getDataFromDb('tasks')
             if (data) {
+                const useID = getAuth()?.currentUser?.uid
+                console.log('useID', useID)
                 // Create an array of tasks with their unique keys
-                const tasksArray = Object.keys(data).map((key) => ({
-                    id: key, // Unique ID for the task
-                    ...data[key], // The rest of the task data
-                }))
+
+                const tasksArray = Object.keys(data)
+                    .map((key) => ({
+                        id: key, // Unique ID for the task
+                        ...data[key], // The rest of the task data
+                    }))
+                    .filter((task) => task?.assignedMemberId === useID) // Filter tasks where task.uid matches the user's UID
 
                 setTasks(tasksArray) // Update the state with tasks and their IDs
                 
@@ -84,7 +86,7 @@ const AdminTask = () => {
                     uid: user?.id,
                 }))
                 setMember(newNembers) // Update the state with tasks and their IDs
-               
+                
             }
         } catch (err) {
             console.log('err======>', err)
@@ -93,68 +95,67 @@ const AdminTask = () => {
             setLoading(false)
         }
     }
+    const onMarkAsComplete = async (item) => {
+        const data = {
+            ...item,
+            taskStatus: 'Completed',
+        }
 
+        try {
+            const result = await updateDataInDb('tasks', item?.id, data)
+            console.log('result', result)
+
+            Alert.alert((title = 'Success!'), 'Task Completed')
+            setTasks((prevTasks) =>
+                prevTasks.map((task) =>
+                    task?.id === item?.id
+                        ? { ...task, taskStatus: 'Completed' }
+                        : task
+                )
+            )
+        } catch (err) {
+            console.log('err====>', err)
+            Alert.alert(
+                (title = 'Error'),
+                'Failed to Complete task. Please try again.'
+            )
+            setError('Failed to create task. Please try again.')
+        } finally {
+            setLoading(false)
+        }
+    }
+    const handleFilterApply = () => {
+        let filterTasks = [...tasks]
+        filterTasks = tasks.filter(
+            (singleTask) =>
+                singleTask.priority === priority?.toLowerCase() ||
+                singleTask.dueDate === dueDate ||
+                singleTask.assignedMemberId === assignedMember?.uid
+        )
+        
+        setTasks(filterTasks)
+        setModalVisible(false)
+    }
+
+    const handleFilterReset = () => {
+        fetchTasks(); // Reset to all tasks
+        setPriority('');
+        setDueDate('');
+        setAssignedMember({});
+        setModalVisible(false);
+    };
 
     const renderItem = ({ item }) => {
         return (
             <TaskListItem
-                role={'Admin'}
+                role={'User'}
                 item={item}
-                onEdit={onEdit}
-                onDelete={onDelete}
+                onMarkAsComplete={onMarkAsComplete}
             />
         )
     }
-    const onEdit = (item) => {
-        navigation.navigate('HomeRouter', {
-            screen: 'EditTask',
-            params: {
-                task: item, // Pass the item as a parameter
-            },
-        })
-    }
-
-    const onDelete = (item) => {
-        Alert.alert(
-            'Confirm Deletion',
-            'Are you sure you want to delete this task?',
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel',
-                },
-                {
-                    text: 'Delete',
-                    onPress: async () => {
-                        try {
-                            await deleteDataFromDb('tasks', item.id)
-                            setTasks((prevTasks) =>
-                                prevTasks.filter((task) => task.id !== item.id)
-                            )
-                        } catch (err) {
-                            setError('Failed to delete task')
-                        }
-                    },
-                    style: 'destructive',
-                },
-            ],
-            { cancelable: true }
-        )
-    }
-
-    const handleFilterApply = () => {
-        const uid = getAuth()?.currentUser.uid
-        let filterTasks = [...tasks]
-        filterTasks = tasks.filter(
-            (singleTask) =>
-                singleTask.priority === priority ||
-                singleTask.dueDate === dueDate ||
-                singleTask.assignedMemberId === assignedMember?.uid
-        )
-        setTasks(filterTasks)
-        setModalVisible(false)
-    }
     const handleFilterPress = () => setModalVisible(true)
+
     return (
         <View style={styles.container}>
             <HeaderComponent
@@ -165,7 +166,6 @@ const AdminTask = () => {
                 data={tasks}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
-               
                 contentContainerStyle={styles.listContent}
                 showsVerticalScrollIndicator={false}
             />
@@ -233,10 +233,7 @@ const AdminTask = () => {
                         </PrimaryButton>
                         <Spacing val={20} />
                         <PrimaryButton
-                            onPress={() => {
-                                setModalVisible(false)
-                                fetchTasks()
-                            }}>
+                            onPress={handleFilterReset}>
                             {'Reset'}
                         </PrimaryButton>
                     </View>
@@ -246,46 +243,20 @@ const AdminTask = () => {
     )
 }
 
-export default AdminTask
+export default UserTasks
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Color.white,
+        backgroundColor: '#f5f5f5',
         paddingHorizontal: 16,
         paddingTop: 16,
     },
-    headerContainer: {
-        backgroundColor: '#4c669f',
-        padding: 16,
-        borderRadius: 10,
-        marginBottom: 12,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
-        shadowRadius: 4,
-        elevation: 3,
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: '700',
-        color: Color.white,
-    },
+
     listContent: {
         paddingBottom: 20,
     },
-    filterButton: {
-        backgroundColor: Color.white,
-        padding: 8,
-        borderRadius: 5,
-    },
-    filterButtonText: {
-        color: '#4c669f',
-        fontWeight: '600',
-    },
+
     modalContainer: {
         flex: 1,
         justifyContent: 'flex-end',

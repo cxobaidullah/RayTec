@@ -24,10 +24,11 @@ const SplashScreen = ({}) => {
                     index: 0,
                     routes: [
                         {
-                            name: 'AdminRoute',
+                            name: 'HomeRouter',
                         },
                     ],
                 })
+                // name: 'AdminRoute',
             } else {
                 navigation.reset({
                     index: 0,

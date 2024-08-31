@@ -9,7 +9,7 @@ import HomeRouter from './src/router/HomeRouter';
 import SplashScreen from './src/views/splash/SplashScreen';
 import AdminRoute from './src/router/AdminRoute';
 import { LogBox } from 'react-native';
-
+ 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs()
 const App = () => {
@@ -37,6 +37,7 @@ const App = () => {
                         component={AdminRoute}
                         options={{ headerShown: false }}
                     />
+                  
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

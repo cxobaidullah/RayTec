@@ -7,6 +7,7 @@ import {
     child,
     update,
     remove,
+    query, orderByChild, equalTo
 } from '@react-native-firebase/database'
 
 export const addDataToDb = async (path, data) => {
@@ -54,6 +55,25 @@ export const getDataById = async (path, id) => {
         throw new Error('Failed to get data from Firebase')
     }
 }
+
+export const getUsersByRole = async (path,role) => {
+    try {
+        const db = getDatabase();
+        const usersRef = ref(db, path); // Reference to the 'users' node
+        const usersQuery = query(usersRef, orderByChild('role'), equalTo(role));
+        const snapshot = await get(usersQuery);
+
+        if (snapshot.exists()) {
+            return snapshot.val(); // Returns the data as a JavaScript object
+        } else {
+            console.log('No users found with the role:', role);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching users from Firebase:', error);
+        throw new Error('Failed to fetch users from Firebase');
+    }
+};
 export const updateDataInDb = async (path, id, newData) => {
     try {
         const db = getDatabase()
