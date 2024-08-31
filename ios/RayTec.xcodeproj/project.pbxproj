@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1AB0DC692C83048D0009EC3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AB0DC682C83048D0009EC3D /* GoogleService-Info.plist */; };
 		6141AB762749DFFE570F7A0E /* libPods-RayTec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D16DFA44D38E4B3119302F /* libPods-RayTec.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A99DE4B483484EB9F7903508 /* libPods-RayTec-RayTecTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22164A1FAC934D27EFBBDC6C /* libPods-RayTec-RayTecTests.a */; };
@@ -36,6 +37,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RayTec/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RayTec/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RayTec/main.m; sourceTree = "<group>"; };
+		1AB0DC682C83048D0009EC3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		22164A1FAC934D27EFBBDC6C /* libPods-RayTec-RayTecTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RayTec-RayTecTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FA1A7C55798ACDB51AC559C /* Pods-RayTec-RayTecTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RayTec-RayTecTests.debug.xcconfig"; path = "Target Support Files/Pods-RayTec-RayTecTests/Pods-RayTec-RayTecTests.debug.xcconfig"; sourceTree = "<group>"; };
 		412570CB050A9FB546A4861E /* Pods-RayTec-RayTecTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RayTec-RayTecTests.release.xcconfig"; path = "Target Support Files/Pods-RayTec-RayTecTests/Pods-RayTec-RayTecTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* RayTec */ = {
 			isa = PBXGroup;
 			children = (
+				1AB0DC682C83048D0009EC3D /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -244,6 +247,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				1AB0DC692C83048D0009EC3D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

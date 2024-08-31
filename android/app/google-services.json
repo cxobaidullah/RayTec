@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "311820020137",
+    "project_id": "raytec-328f3",
+    "storage_bucket": "raytec-328f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311820020137:android:a353c61b1eda1f532e3cb8",
+        "android_client_info": {
+          "package_name": "com.raytec"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCct7pYBwKDDT6Pb3_lHjEJUonCRltWdAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
