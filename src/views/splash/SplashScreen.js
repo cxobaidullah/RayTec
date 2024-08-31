@@ -24,7 +24,7 @@ const SplashScreen = ({}) => {
                     index: 0,
                     routes: [
                         {
-                            name: 'HomeRouter',
+                            name: 'AdminRoute',
                         },
                     ],
                 })

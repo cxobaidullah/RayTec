@@ -110,11 +110,12 @@ const AdminHome = () => {
             setLoading(false)
             return
         }
+        const formatDate = moment(dueDate).format('YYYY-M-D');
         const data = {
             title,
             description: describeSelf,
             priority: priority,
-            dueDate: dueDate.toString(),
+            dueDate: formatDate.toString(),
             createdAt: new Date().toISOString(), // Add timestamp
             assignedMember: assignedMember?.label,
             assignedMemberId: assignedMember?.uid,
@@ -143,11 +144,12 @@ const AdminHome = () => {
             setLoading(false)
             return
         }
+        const formatDate = moment(dueDate).format('YYYY-M-D');
         const data = {
             title,
             description: describeSelf,
             priority: priority,
-            dueDate: dueDate ? dueDate.toString() : tasks?.dueDate,
+            dueDate: dueDate ? formatDate.toString() : tasks?.dueDate,
             createdAt: new Date().toISOString(), // Add timestamp
             assignedMember: assignedMember?.label,
             assignedMemberId: assignedMember?.uid,

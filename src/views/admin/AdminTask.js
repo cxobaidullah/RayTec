@@ -23,6 +23,7 @@ import { getAuth } from '@react-native-firebase/auth'
 import Color from '../../style/Color'
 import Style from '../../style/Style'
 import HeaderComponent from '../../components/HeaderComponent'
+import moment from 'moment'
 
 const AdminTask = () => {
     const [tasks, setTasks] = useState([])
@@ -143,15 +144,15 @@ const AdminTask = () => {
     }
 
     const handleFilterApply = () => {
-        const uid = getAuth()?.currentUser.uid
-        let filterTasks = [...tasks]
-        filterTasks = tasks.filter(
-            (singleTask) =>
-                singleTask.priority === priority ||
-                singleTask.dueDate === dueDate ||
-                singleTask.assignedMemberId === assignedMember?.uid
-        )
-        setTasks(filterTasks)
+        const formatDate = moment(dueDate).format('YYYY-M-D');
+
+  
+        const filteredTasks = tasks.filter(item => 
+            item.priority === priority && item.dueDate === formatDate.toString() && item?.assignedMemberId ===assignedMember?.uid
+          );
+     
+        
+        setTasks(filteredTasks)
         setModalVisible(false)
     }
     const handleFilterPress = () => setModalVisible(true)

@@ -20,6 +20,7 @@ import PrimaryButton from '../../components/PrimaryButton'
 import { validateDate } from '../../utils/common'
 import HeaderComponent from '../../components/HeaderComponent'
 import Style from '../../style/Style'
+import moment from 'moment'
 
 const UserTasks = () => {
     const [tasks, setTasks] = useState([])
@@ -59,7 +60,7 @@ const UserTasks = () => {
                         ...data[key], // The rest of the task data
                     }))
                     .filter((task) => task?.assignedMemberId === useID) // Filter tasks where task.uid matches the user's UID
-
+                    console.log('taskArrak-=====>', tasksArray)
                 setTasks(tasksArray) // Update the state with tasks and their IDs
                 
                 setLoading(false)
@@ -125,15 +126,15 @@ const UserTasks = () => {
         }
     }
     const handleFilterApply = () => {
-        let filterTasks = [...tasks]
-        filterTasks = tasks.filter(
-            (singleTask) =>
-                singleTask.priority === priority?.toLowerCase() ||
-                singleTask.dueDate === dueDate ||
-                singleTask.assignedMemberId === assignedMember?.uid
-        )
+        const formatDate = moment(dueDate).format('YYYY-M-D');
+
+  
+        const filteredTasks = tasks.filter(item => 
+            item.priority === priority && item.dueDate === formatDate.toString()
+          );
+     
         
-        setTasks(filterTasks)
+        setTasks(filteredTasks)
         setModalVisible(false)
     }
 
@@ -208,7 +209,7 @@ const UserTasks = () => {
                             error={'Due Date Required'}
                         />
                         <Spacing val={20} />
-                        <CustomDropDown
+                        {/* <CustomDropDown
                             search={true}
                             country={true}
                             label='Assign to Member'
@@ -226,7 +227,7 @@ const UserTasks = () => {
                                     : null
                             }
                         />
-                        <Spacing val={20} />
+                        <Spacing val={20} /> */}
 
                         <PrimaryButton onPress={handleFilterApply}>
                             {'Apply Filter'}
