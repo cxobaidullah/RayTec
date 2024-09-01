@@ -1,4 +1,8 @@
-import { CommonActions, useNavigation, useRoute } from '@react-navigation/native'
+import {
+    CommonActions,
+    useNavigation,
+    useRoute,
+} from '@react-navigation/native'
 import react, { useEffect, useState } from 'react'
 import {
     ActivityIndicator,
@@ -18,7 +22,7 @@ import { validateEmail, validatePassword } from '../../utils/common'
 import { getAuth } from '@react-native-firebase/auth'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../app/userSlice'
- 
+
 import { getDataById } from '../../network/firbaseNetwork'
 
 export default LoginScreen = ({}) => {
@@ -29,17 +33,15 @@ export default LoginScreen = ({}) => {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState()
     const [error, setError] = useState()
-    const[userRole ,setUserRole]=useState('')
+    const [userRole, setUserRole] = useState('')
     const dispatch = useDispatch()
     useEffect(() => {
         handleRoutes()
     }, [route?.params])
-    const handleRoutes =() =>{
+    const handleRoutes = () => {
         setUserRole(route?.params.role)
-        
     }
     const onLogin = ({}) => {
-       
         if (!validateEmail(email) || !validatePassword(password)) {
             setValidation(true)
             return
@@ -49,32 +51,30 @@ export default LoginScreen = ({}) => {
         setError(false)
         setLoading(true)
 
-    
         getAuth()
-        .signInWithEmailAndPassword(email, password)
-        .then((userCredentials) => {
-            let currentUser = {
-                photoURL: userCredentials.user.photoURL,
-                displayName: userCredentials.user.displayName,
-            }
+            .signInWithEmailAndPassword(email, password)
+            .then((userCredentials) => {
+                let currentUser = {
+                    photoURL: userCredentials.user.photoURL,
+                    displayName: userCredentials.user.displayName,
+                }
 
-            dispatch(setUser(currentUser))
-            getMe()
-          
-        })
-        .catch((error) => {
-            setLoading(false)
-            console.log('error', error.message)
-            setError(error.message)
-        })
+                dispatch(setUser(currentUser))
+                getMe()
+            })
+            .catch((error) => {
+                setLoading(false)
+                console.log('error', error.message)
+                setError(error.message)
+            })
     }
 
-    const getMe = async() =>{
+    const getMe = async () => {
         const uid = getAuth()?.currentUser?.uid
-       
-        const user = await getDataById('users',uid)
-        
-        if(user?.role === 'Admin'){
+
+        const user = await getDataById('users', uid)
+
+        if (user?.role === 'Admin') {
             navigation.reset({
                 index: 0,
                 routes: [
@@ -83,8 +83,7 @@ export default LoginScreen = ({}) => {
                     },
                 ],
             })
-            
-        }else{
+        } else {
             navigation.reset({
                 index: 0,
                 routes: [
@@ -93,13 +92,11 @@ export default LoginScreen = ({}) => {
                     },
                 ],
             })
-            
         }
     }
 
     return (
         <View style={[Style.container, Style.centerJustify]}>
-        
             <View style={Style.hPadding}>
                 <InputField
                     label={'Email'}
@@ -132,7 +129,7 @@ export default LoginScreen = ({}) => {
                     }
                 />
                 <Spacing val={20} />
-    
+
                 {loading && (
                     <>
                         <ActivityIndicator animating={true} />
@@ -149,9 +146,11 @@ export default LoginScreen = ({}) => {
                 <PrimaryButton onPress={onLogin}>Login</PrimaryButton>
                 <Spacing val={20} />
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Signup',{
-                        role:userRole
-                    })}
+                    onPress={() =>
+                        navigation.navigate('Signup', {
+                            role: userRole,
+                        })
+                    }
                     style={{ alignItems: 'center' }}
                 >
                     <Text>

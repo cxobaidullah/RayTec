@@ -1,20 +1,20 @@
 // HeaderComponent.js
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 const HeaderComponent = ({ title, onFilterPress }) => {
-  return (
-    <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>{title}</Text>
-      <TouchableOpacity
-        onPress={onFilterPress}
-        style={styles.filterButton}
-      >
-        <Text style={styles.filterButtonText}>Filter</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+    return (
+        <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>{title}</Text>
+            <TouchableOpacity
+                onPress={onFilterPress}
+                style={styles.filterButton}
+            >
+                <Text style={styles.filterButtonText}>Filter</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
 
 const styles = StyleSheet.create({
     headerContainer: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         alignItems: 'center',
         justifyContent: 'space-around',
-        flexDirection:'row',
+        flexDirection: 'row',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.15,
@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
         color: '#4c669f',
         fontWeight: '600',
     },
-});
+})
 
-export default HeaderComponent;
+export default HeaderComponent

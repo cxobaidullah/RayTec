@@ -20,10 +20,7 @@ import InputField from '../../components/InputField'
 import Spacing from '../../components/Spacing'
 import ErrorLabel from '../../components/ErrorLabel'
 import PrimaryButton from '../../components/PrimaryButton'
- import {
-    validateDate,
-    validateTextField,
-} from '../../utils/common'
+import { validateDate, validateTextField } from '../../utils/common'
 import TextField from '../../components/TextField'
 import CustomDropDown from '../../components/CustomDropDown'
 import CustomDateInput from '../../components/CustomDateInput'
@@ -59,30 +56,25 @@ const AdminHome = () => {
     ]
     useFocusEffect(
         useCallback(() => {
-        
-            handleRoute() // when screen focused and if routes have params then set params values when screen not focused return to initial state  
-            
+            handleRoute() // when screen focused and if routes have params then set params values when screen not focused return to initial state
+
             return () => {
-                
                 initialValues()
             }
         }, [route?.params])
     )
 
     const initialValues = () => {
-      
-        setTitle(''), 
-        setDescribeSelf('')
+        setTitle(''), setDescribeSelf('')
         setPriority('')
         setAssignedMember(null)
         setTasks(null)
-         
     }
 
     useEffect(() => {
         fetchMembers()
     }, [])
-   
+
     const handleRoute = () => {
         if (route?.params?.task) {
             const task = route?.params?.task
@@ -112,7 +104,7 @@ const AdminHome = () => {
             setLoading(false)
             return
         }
-        const formatDate = moment(dueDate.toString()).format('YYYY-M-D');
+        const formatDate = moment(dueDate.toString()).format('YYYY-M-D')
         const data = {
             title,
             description: describeSelf,
@@ -126,14 +118,13 @@ const AdminHome = () => {
 
         console.log('data===>', data)
         try {
-            const result =  addDataToDb('tasks', data)
+            const result = addDataToDb('tasks', data)
             console.log('result', result)
             setTitle(''), setDescribeSelf('')
             setPriority('')
             setAssignedMember(null)
             setLoading(false)
             Alert.alert('Task Created Successfully')
-            
         } catch (err) {
             console.log('err====>', err)
             setError('Failed to create task. Please try again.')
@@ -149,7 +140,7 @@ const AdminHome = () => {
             setLoading(false)
             return
         }
-        const formatDate = moment(dueDate).format('YYYY-M-D');
+        const formatDate = moment(dueDate).format('YYYY-M-D')
         const data = {
             title,
             description: describeSelf,
@@ -213,7 +204,6 @@ const AdminHome = () => {
                     {' '}
                     {!tasks ? 'Create New Task' : 'Update Task'}
                 </Text>
-           
             </View>
             <Spacing val={50} />
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -310,8 +300,9 @@ const AdminHome = () => {
                     <Spacing val={30} />
                     <PrimaryButton
                         onPress={() => {
-                           handleCreateTask()
-                        }}>
+                            handleCreateTask()
+                        }}
+                    >
                         {!tasks ? 'Create Task' : 'Update Task'}
                     </PrimaryButton>
                     <Spacing val={20} />
@@ -331,7 +322,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         alignItems: 'center',
         justifyContent: 'space-around',
-        flexDirection:'row',
+        flexDirection: 'row',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.15,

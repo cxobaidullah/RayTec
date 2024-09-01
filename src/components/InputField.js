@@ -16,9 +16,9 @@ export default InputField = ({
 }) => {
     return (
         <>
-            <Text style={[Style.label, Style.colorSecondary,]}>{label}</Text>
+            <Text style={[Style.label, Style.colorSecondary]}>{label}</Text>
             <Spacing />
-            <View style={[style.container,styles]}>
+            <View style={[style.container, styles]}>
                 <TextInput
                     placeholder={placeholder}
                     value={value}

@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator()
 export default AuthRouter = () => {
     return (
         <Stack.Navigator initialRouteName='Start'>
-          <Stack.Screen
+            <Stack.Screen
                 name='Start'
                 options={{
                     headerShown: false,

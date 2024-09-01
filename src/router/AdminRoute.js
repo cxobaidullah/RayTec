@@ -1,10 +1,10 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AdminHome from '../views/admin/AdminHome';
-import AdminTask from '../views/admin/AdminTask';
-import Profile from '../views/user-profile/Profile';
-import { StyleSheet, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import AdminHome from '../views/admin/AdminHome'
+import AdminTask from '../views/admin/AdminTask'
+import Profile from '../views/user-profile/Profile'
+import { StyleSheet, View } from 'react-native'
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 export default AdminHomeTabs = () => {
     return (
@@ -15,12 +15,12 @@ export default AdminHomeTabs = () => {
                 tabBarStyle: styles.tabBar, // Apply custom styles
             }}
         >
-          <Tab.Screen
+            <Tab.Screen
                 name='Task'
                 component={AdminTask}
                 options={{
                     headerShown: false,
-                    tabBarLabel: '📅 Task',  // Emoji-based icon
+                    tabBarLabel: '📅 Task', // Emoji-based icon
                     tabBarIcon: () => null, // Disable default icon
                 }}
             />
@@ -29,26 +29,26 @@ export default AdminHomeTabs = () => {
                 component={AdminHome}
                 options={{
                     headerShown: false,
-                    tabBarLabel: '🏠 Add New Task',  // Emoji-based icon
+                    tabBarLabel: '🏠 Add New Task', // Emoji-based icon
                     tabBarIcon: () => null, // Disable default icon
                 }}
             />
-          
+
             <Tab.Screen
                 name='Profile'
                 component={Profile}
                 options={{
                     headerShown: false,
-                    tabBarLabel: '👤 Profile',  // Emoji-based icon
+                    tabBarLabel: '👤 Profile', // Emoji-based icon
                     tabBarIcon: () => null, // Disable default icon
                 }}
             />
         </Tab.Navigator>
-    );
-};
+    )
+}
 const styles = StyleSheet.create({
     tabBar: {
         // marginBottom: 10, // Adjust the bottom margin here
-        paddingBottom:10
+        paddingBottom: 10,
     },
-});
+})

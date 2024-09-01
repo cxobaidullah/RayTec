@@ -60,7 +60,7 @@ const AdminTask = () => {
                 }))
 
                 setTasks(tasksArray) // Update the state with tasks and their IDs
-                
+
                 setLoading(false)
             }
         } catch (err) {
@@ -85,7 +85,6 @@ const AdminTask = () => {
                     uid: user?.id,
                 }))
                 setMember(newNembers) // Update the state with tasks and their IDs
-               
             }
         } catch (err) {
             console.log('err======>', err)
@@ -94,7 +93,6 @@ const AdminTask = () => {
             setLoading(false)
         }
     }
-
 
     const renderItem = ({ item }) => {
         return (
@@ -144,14 +142,15 @@ const AdminTask = () => {
     }
 
     const handleFilterApply = () => {
-        const formatDate = moment(dueDate).format('YYYY-M-D');
+        const formatDate = moment(dueDate).format('YYYY-M-D')
 
-  
-        const filteredTasks = tasks.filter(item => 
-            item.priority === priority && item.dueDate === formatDate.toString() && item?.assignedMemberId ===assignedMember?.uid
-          );
-     
-        
+        const filteredTasks = tasks.filter(
+            (item) =>
+                item.priority === priority &&
+                item.dueDate === formatDate.toString() &&
+                item?.assignedMemberId === assignedMember?.uid
+        )
+
         setTasks(filteredTasks)
         setModalVisible(false)
     }
@@ -166,7 +165,6 @@ const AdminTask = () => {
                 data={tasks}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
-               
                 contentContainerStyle={styles.listContent}
                 showsVerticalScrollIndicator={false}
             />
@@ -175,7 +173,8 @@ const AdminTask = () => {
                 animationType='slide'
                 transparent={true}
                 visible={isModalVisible}
-                onRequestClose={() => setModalVisible(false)}>
+                onRequestClose={() => setModalVisible(false)}
+            >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                         <Text style={[Style.label18, styles.modalTitle]}>
@@ -237,7 +236,8 @@ const AdminTask = () => {
                             onPress={() => {
                                 setModalVisible(false)
                                 fetchTasks()
-                            }}>
+                            }}
+                        >
                             {'Reset'}
                         </PrimaryButton>
                     </View>

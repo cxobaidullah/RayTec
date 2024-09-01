@@ -16,14 +16,14 @@ export default HomeRouter = () => {
                     headerShown: false,
                 }}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name='HomeTabs'
                 component={HomeTabs}
                 options={{
                     headerShown: false,
                 }}
             />
-            
+
             <Stack.Screen
                 name='Profile'
                 options={{
@@ -31,14 +31,13 @@ export default HomeRouter = () => {
                 }}
                 component={Profile}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name='EditTask'
                 options={{
                     headerShown: false,
                 }}
                 component={EditTask}
             />
-            
         </Stack.Navigator>
     )
 }

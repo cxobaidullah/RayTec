@@ -62,30 +62,26 @@ const EditTask = () => {
     ]
     useFocusEffect(
         useCallback(() => {
-        
-            handleRoute() // when screen focused and if routes have params then set params values when screen not focused return to initial state  
-            
+            handleRoute() // when screen focused and if routes have params then set params values when screen not focused return to initial state
+
             return () => {
-                
                 initialValues()
             }
         }, [route?.params])
     )
 
     const initialValues = () => {
-        console.log('Screen bluuer===========>');
-        setTitle(''), 
-        setDescribeSelf('')
+        console.log('Screen bluuer===========>')
+        setTitle(''), setDescribeSelf('')
         setPriority('')
         setAssignedMember(null)
         setTasks(null)
-         
     }
 
     useEffect(() => {
         fetchMembers()
     }, [])
-   
+
     const handleRoute = () => {
         if (route?.params?.task) {
             const task = route?.params?.task
@@ -115,7 +111,7 @@ const EditTask = () => {
             setLoading(false)
             return
         }
-        const formatDate = moment(dueDate.toString()).format('YYYY-M-D');
+        const formatDate = moment(dueDate.toString()).format('YYYY-M-D')
         const data = {
             title,
             description: describeSelf,
@@ -149,7 +145,7 @@ const EditTask = () => {
             setLoading(false)
             return
         }
-        const formatDate = moment(dueDate).format('YYYY-M-D');
+        const formatDate = moment(dueDate).format('YYYY-M-D')
         const data = {
             title,
             description: describeSelf,
@@ -215,12 +211,13 @@ const EditTask = () => {
                     {!tasks ? 'Create New Task' : 'Update Task'}
                 </Text>
                 <TouchableOpacity
-                onPress={() =>{
-                    navigation.goBack()
-                }}
-                style={styles.filterButton}>
-                <Text style={styles.filterButtonText}>Go Back</Text>
-            </TouchableOpacity>
+                    onPress={() => {
+                        navigation.goBack()
+                    }}
+                    style={styles.filterButton}
+                >
+                    <Text style={styles.filterButtonText}>Go Back</Text>
+                </TouchableOpacity>
             </View>
             <Spacing val={50} />
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -318,7 +315,8 @@ const EditTask = () => {
                     <PrimaryButton
                         onPress={() => {
                             !tasks ? handleCreateTask() : handleUpdateTask()
-                        }}>
+                        }}
+                    >
                         {!tasks ? 'Create Task' : 'Update Task'}
                     </PrimaryButton>
                     <Spacing val={20} />
@@ -338,7 +336,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         alignItems: 'center',
         justifyContent: 'space-around',
-        flexDirection:'row',
+        flexDirection: 'row',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.15,

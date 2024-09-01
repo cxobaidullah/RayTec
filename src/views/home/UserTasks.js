@@ -60,9 +60,9 @@ const UserTasks = () => {
                         ...data[key], // The rest of the task data
                     }))
                     .filter((task) => task?.assignedMemberId === useID) // Filter tasks where task.uid matches the user's UID
-                    console.log('taskArrak-=====>', tasksArray)
+                console.log('taskArrak-=====>', tasksArray)
                 setTasks(tasksArray) // Update the state with tasks and their IDs
-                
+
                 setLoading(false)
             }
         } catch (err) {
@@ -87,7 +87,6 @@ const UserTasks = () => {
                     uid: user?.id,
                 }))
                 setMember(newNembers) // Update the state with tasks and their IDs
-                
             }
         } catch (err) {
             console.log('err======>', err)
@@ -126,25 +125,25 @@ const UserTasks = () => {
         }
     }
     const handleFilterApply = () => {
-        const formatDate = moment(dueDate).format('YYYY-M-D');
+        const formatDate = moment(dueDate).format('YYYY-M-D')
 
-  
-        const filteredTasks = tasks.filter(item => 
-            item.priority === priority && item.dueDate === formatDate.toString()
-          );
-     
-        
+        const filteredTasks = tasks.filter(
+            (item) =>
+                item.priority === priority &&
+                item.dueDate === formatDate.toString()
+        )
+
         setTasks(filteredTasks)
         setModalVisible(false)
     }
 
     const handleFilterReset = () => {
-        fetchTasks(); // Reset to all tasks
-        setPriority('');
-        setDueDate('');
-        setAssignedMember({});
-        setModalVisible(false);
-    };
+        fetchTasks() // Reset to all tasks
+        setPriority('')
+        setDueDate('')
+        setAssignedMember({})
+        setModalVisible(false)
+    }
 
     const renderItem = ({ item }) => {
         return (
@@ -175,7 +174,8 @@ const UserTasks = () => {
                 animationType='slide'
                 transparent={true}
                 visible={isModalVisible}
-                onRequestClose={() => setModalVisible(false)}>
+                onRequestClose={() => setModalVisible(false)}
+            >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                         <Text style={[Style.label18, styles.modalTitle]}>
@@ -233,8 +233,7 @@ const UserTasks = () => {
                             {'Apply Filter'}
                         </PrimaryButton>
                         <Spacing val={20} />
-                        <PrimaryButton
-                            onPress={handleFilterReset}>
+                        <PrimaryButton onPress={handleFilterReset}>
                             {'Reset'}
                         </PrimaryButton>
                     </View>

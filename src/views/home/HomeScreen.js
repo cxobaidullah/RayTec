@@ -4,11 +4,5 @@ import Style from '../../style/Style'
 import Color from '../../style/Color'
 
 export default HomeScreen = ({}) => {
-  
-
-    return (
-        <View style={Style.container}>
-         
-        </View>
-    )
+    return <View style={Style.container}></View>
 }

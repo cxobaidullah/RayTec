@@ -19,10 +19,9 @@ const SplashScreen = ({}) => {
                     photoURL: user.photoURL,
                     displayName: user.displayName,
                 }
-                
+
                 dispatch(setUser(currentUser))
                 getMe()
-               
             } else {
                 navigation.reset({
                     index: 0,
@@ -40,12 +39,12 @@ const SplashScreen = ({}) => {
         const subscriber = getAuth().onAuthStateChanged(onAuthStateChanged)
         return subscriber // unsubscribe on unmount
     }, [])
-    const getMe = async() =>{
+    const getMe = async () => {
         const uid = getAuth()?.currentUser?.uid
-      
-        const user = await getDataById('users',uid)
-         
-        if(user?.role === 'Admin'){
+
+        const user = await getDataById('users', uid)
+
+        if (user?.role === 'Admin') {
             navigation.reset({
                 index: 0,
                 routes: [
@@ -55,7 +54,7 @@ const SplashScreen = ({}) => {
                 ],
             })
             // name: 'AdminRoute',
-        }else{
+        } else {
             navigation.reset({
                 index: 0,
                 routes: [

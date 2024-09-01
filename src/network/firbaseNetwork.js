@@ -7,7 +7,9 @@ import {
     child,
     update,
     remove,
-    query, orderByChild, equalTo
+    query,
+    orderByChild,
+    equalTo,
 } from '@react-native-firebase/database'
 
 export const addDataToDb = async (path, data) => {
@@ -56,24 +58,24 @@ export const getDataById = async (path, id) => {
     }
 }
 
-export const getUsersByRole = async (path,role) => {
+export const getUsersByRole = async (path, role) => {
     try {
-        const db = getDatabase();
-        const usersRef = ref(db, path); // Reference to the 'users' node
-        const usersQuery = query(usersRef, orderByChild('role'), equalTo(role));
-        const snapshot = await get(usersQuery);
+        const db = getDatabase()
+        const usersRef = ref(db, path) // Reference to the 'users' node
+        const usersQuery = query(usersRef, orderByChild('role'), equalTo(role))
+        const snapshot = await get(usersQuery)
 
         if (snapshot.exists()) {
-            return snapshot.val(); // Returns the data as a JavaScript object
+            return snapshot.val() // Returns the data as a JavaScript object
         } else {
-            console.log('No users found with the role:', role);
-            return null;
+            console.log('No users found with the role:', role)
+            return null
         }
     } catch (error) {
-        console.error('Error fetching users from Firebase:', error);
-        throw new Error('Failed to fetch users from Firebase');
+        console.error('Error fetching users from Firebase:', error)
+        throw new Error('Failed to fetch users from Firebase')
     }
-};
+}
 export const updateDataInDb = async (path, id, newData) => {
     try {
         const db = getDatabase()
@@ -99,11 +101,11 @@ export const deleteDataFromDb = async (path, id) => {
 
 export const storeUserData = async (userId, userData) => {
     try {
-      const db = getDatabase();
-      const userRef = ref(db, `users/${userId}`); // Reference for the user path
-      await set(userRef, userData);
-      console.log('User data stored successfully.');
+        const db = getDatabase()
+        const userRef = ref(db, `users/${userId}`) // Reference for the user path
+        await set(userRef, userData)
+        console.log('User data stored successfully.')
     } catch (error) {
-      console.error('Error storing user data:', error);
+        console.error('Error storing user data:', error)
     }
-  };
+}

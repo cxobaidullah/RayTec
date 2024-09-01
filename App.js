@@ -1,16 +1,16 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import 'react-native-gesture-handler';
-import { Provider } from 'react-redux';
-import store from './src/app/store';
-import AuthRouter from './src/router/AuthRouter';
-import HomeRouter from './src/router/HomeRouter';
-import SplashScreen from './src/views/splash/SplashScreen';
-import AdminRoute from './src/router/AdminRoute';
-import { LogBox } from 'react-native';
- 
-const Stack = createNativeStackNavigator();
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import 'react-native-gesture-handler'
+import { Provider } from 'react-redux'
+import store from './src/app/store'
+import AuthRouter from './src/router/AuthRouter'
+import HomeRouter from './src/router/HomeRouter'
+import SplashScreen from './src/views/splash/SplashScreen'
+import AdminRoute from './src/router/AdminRoute'
+import { LogBox } from 'react-native'
+
+const Stack = createNativeStackNavigator()
 LogBox.ignoreAllLogs()
 const App = () => {
     return (
@@ -32,16 +32,15 @@ const App = () => {
                         component={HomeRouter}
                         options={{ headerShown: false }}
                     />
-                     <Stack.Screen
+                    <Stack.Screen
                         name='AdminRoute'
                         component={AdminRoute}
                         options={{ headerShown: false }}
                     />
-                  
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
-    );
-};
+    )
+}
 
-export default App;
+export default App

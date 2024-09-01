@@ -71,7 +71,7 @@ export default CustomDateInput = ({
                     }}
                 />
                 <TouchableOpacity onPress={onPressShow}>
-                <Text style={style.calendarText}>📅</Text>
+                    <Text style={style.calendarText}>📅</Text>
                 </TouchableOpacity>
             </View>
             {validation && validationFn && !validationFn(value) && (
@@ -109,5 +109,5 @@ const style = StyleSheet.create({
     calendarText: {
         fontSize: 30, // Adjust size as needed
         color: 'black', // Adjust color as needed
-      },
+    },
 })

@@ -65,7 +65,7 @@ export default CustomDropDown = ({
                         setValue(country ? item : item.value)
                     }}
                     renderRightIcon={() => {
-                        return  <Text style={styles.arrowText}>▼</Text> 
+                        return <Text style={styles.arrowText}>▼</Text>
                     }}
                 />
             </View>

@@ -33,7 +33,7 @@ export default SignupScreen = ({}) => {
     useEffect(() => {
         handleRoutes()
     }, [route?.params])
-    const handleRoutes =() =>{
+    const handleRoutes = () => {
         setUserRole(route?.params.role)
         console.log('first', route?.params.role)
     }
@@ -64,22 +64,22 @@ export default SignupScreen = ({}) => {
                     photoURL: null,
                     displayName: name,
                 }
-                const uid =getAuth()?.currentUser?.uid
-                 storeUserData(uid, {
+                const uid = getAuth()?.currentUser?.uid
+                storeUserData(uid, {
                     email: email,
                     role: userRole,
                     uid: getAuth()?.currentUser?.uid,
-                    name:name
+                    name: name,
                 })
                 dispatch(setUser(currentUser))
                 setLoading(false)
 
-                if(userRole ==='User'){
+                if (userRole === 'User') {
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'HomeRouter' }],
                     })
-                }else{
+                } else {
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'AdminRoute' }],
@@ -160,7 +160,8 @@ export default SignupScreen = ({}) => {
                 <Spacing val={20} />
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
-                    style={{ alignItems: 'center' }}>
+                    style={{ alignItems: 'center' }}
+                >
                     <Text>
                         <Text style={[Style.label, Style.colorPrimary]}>
                             Already an account?{' '}
@@ -170,7 +171,8 @@ export default SignupScreen = ({}) => {
                                 Style.label,
                                 Style.colorPrimary,
                                 Style.fontBold,
-                            ]}>
+                            ]}
+                        >
                             Login
                         </Text>
                     </Text>

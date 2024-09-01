@@ -24,17 +24,19 @@ const TaskListItem = ({ item, onEdit, onDelete, role, onMarkAsComplete }) => {
                     Status: {item?.taskStatus ?? ''}
                 </Text>
             </View>
-            <Spacing val={10}/>
+            <Spacing val={10} />
             {role === 'Admin' ? (
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.editButton}
-                        onPress={() => onEdit(item)}>
+                        onPress={() => onEdit(item)}
+                    >
                         <Text style={styles.buttonText}>Edit</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.deleteButton}
-                        onPress={() => onDelete(item)}>
+                        onPress={() => onDelete(item)}
+                    >
                         <Text style={styles.buttonText}>Delete</Text>
                     </TouchableOpacity>
                 </View>
@@ -44,7 +46,8 @@ const TaskListItem = ({ item, onEdit, onDelete, role, onMarkAsComplete }) => {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity
                                 style={[styles.editButton]}
-                                onPress={() => onMarkAsComplete(item)}>
+                                onPress={() => onMarkAsComplete(item)}
+                            >
                                 <Text style={styles.buttonText}>
                                     {'Mark as Complete'}
                                 </Text>
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-     
+
         color: Color.black,
         marginBottom: 4,
     },
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap:20
+        gap: 20,
     },
     editButton: {
         backgroundColor: '#4caf50',
