@@ -77,18 +77,18 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     title: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#333333',
+        fontSize: 18,
+     
+        color: Color.black,
         marginBottom: 4,
     },
     description: {
-        fontSize: 12,
+        fontSize: 15,
         color: '#666666',
         marginBottom: 6,
     },
     dueDate: {
-        fontSize: 12,
+        fontSize: 15,
         color: '#999999',
     },
     buttonContainer: {

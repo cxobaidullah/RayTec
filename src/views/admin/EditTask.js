@@ -115,12 +115,12 @@ const EditTask = () => {
             setLoading(false)
             return
         }
-        const formatDate = moment(dueDate).format('YYYY-M-D');
+        const formatDate = moment(dueDate.toString()).format('YYYY-M-D');
         const data = {
             title,
             description: describeSelf,
             priority: priority,
-            dueDate: formatDate.toString(),
+            dueDate: formatDate,
             createdAt: new Date().toISOString(), // Add timestamp
             assignedMember: assignedMember?.label,
             assignedMemberId: assignedMember?.uid,

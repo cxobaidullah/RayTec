@@ -34,6 +34,8 @@ import {
 } from '../../network/firbaseNetwork'
 
 import Color from '../../style/Color'
+import { deleteUser } from '@react-native-firebase/auth'
+import moment from 'moment'
 
 const AdminHome = () => {
     const navigation = useNavigation()
@@ -110,25 +112,28 @@ const AdminHome = () => {
             setLoading(false)
             return
         }
-        const formatDate = moment(dueDate).format('YYYY-M-D');
+        const formatDate = moment(dueDate.toString()).format('YYYY-M-D');
         const data = {
             title,
             description: describeSelf,
             priority: priority,
-            dueDate: formatDate.toString(),
+            dueDate: formatDate,
             createdAt: new Date().toISOString(), // Add timestamp
             assignedMember: assignedMember?.label,
             assignedMemberId: assignedMember?.uid,
             taskStatus: 'Pending',
         }
 
+        console.log('data===>', data)
         try {
-            const result = await addDataToDb('tasks', data)
+            const result =  addDataToDb('tasks', data)
             console.log('result', result)
             setTitle(''), setDescribeSelf('')
             setPriority('')
             setAssignedMember(null)
+            setLoading(false)
             Alert.alert('Task Created Successfully')
+            
         } catch (err) {
             console.log('err====>', err)
             setError('Failed to create task. Please try again.')
@@ -305,7 +310,7 @@ const AdminHome = () => {
                     <Spacing val={30} />
                     <PrimaryButton
                         onPress={() => {
-                            !tasks ? handleCreateTask() : handleUpdateTask()
+                           handleCreateTask()
                         }}>
                         {!tasks ? 'Create Task' : 'Update Task'}
                     </PrimaryButton>
