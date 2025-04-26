@@ -35,8 +35,8 @@ export default LoginScreen = ({}) => {
     const [error, setError] = useState()
     const [userRole, setUserRole] = useState('')
     const dispatch = useDispatch()
-    const userRedx = useSelector((state) => state?.user?.user);
-   
+    const userRedx = useSelector((state) => state?.user?.user)
+
     useEffect(() => {
         handleRoutes()
     }, [route?.params])
@@ -78,7 +78,7 @@ export default LoginScreen = ({}) => {
         const user = await getDataById('users', uid)
         const userData = {
             ...user,
-            ...userRedx
+            ...userRedx,
         }
         dispatch(setUser(userData))
 

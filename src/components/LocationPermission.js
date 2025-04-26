@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -7,47 +7,47 @@ import {
     Linking,
     Alert,
     Platform,
-} from 'react-native';
-import { PERMISSIONS, request, check, RESULTS } from 'react-native-permissions';
-import Style from '../style/Style';
+} from 'react-native'
+import { PERMISSIONS, request, check, RESULTS } from 'react-native-permissions'
+import Style from '../style/Style'
 
 const LocationPermission = ({ onPermissionGranted }) => {
-    const [permissionStatus, setPermissionStatus] = useState('');
+    const [permissionStatus, setPermissionStatus] = useState('')
 
     useEffect(() => {
-        checkLocationPermission();
-    }, []);
+        checkLocationPermission()
+    }, [])
 
     const checkLocationPermission = async () => {
         try {
             const permission = Platform.select({
                 android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
                 ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-            });
+            })
 
-            const status = await check(permission);
-            setPermissionStatus(status);
+            const status = await check(permission)
+            setPermissionStatus(status)
 
             if (status === RESULTS.GRANTED) {
-                onPermissionGranted?.();
+                onPermissionGranted?.()
             }
         } catch (error) {
-            console.error('Error checking permission:', error);
+            console.error('Error checking permission:', error)
         }
-    };
+    }
 
     const requestLocationPermission = async () => {
         try {
             const permission = Platform.select({
                 android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
                 ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-            });
+            })
 
-            const status = await request(permission);
-            setPermissionStatus(status);
+            const status = await request(permission)
+            setPermissionStatus(status)
 
             if (status === RESULTS.GRANTED) {
-                onPermissionGranted?.();
+                onPermissionGranted?.()
             } else if (status === RESULTS.DENIED) {
                 Alert.alert(
                     'Permission Required',
@@ -62,22 +62,23 @@ const LocationPermission = ({ onPermissionGranted }) => {
                             style: 'cancel',
                         },
                     ]
-                );
+                )
             }
         } catch (error) {
-            console.error('Error requesting permission:', error);
+            console.error('Error requesting permission:', error)
         }
-    };
+    }
 
     if (permissionStatus === RESULTS.GRANTED) {
-        return null;
+        return null
     }
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Location Permission Required</Text>
             <Text style={styles.description}>
-                We need your location to show nearby emergency services and your position on the map.
+                We need your location to show nearby emergency services and your
+                position on the map.
             </Text>
             <TouchableOpacity
                 style={styles.button}
@@ -86,8 +87,8 @@ const LocationPermission = ({ onPermissionGranted }) => {
                 <Text style={styles.buttonText}>Grant Permission</Text>
             </TouchableOpacity>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -126,6 +127,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-});
+})
 
-export default LocationPermission; 
+export default LocationPermission

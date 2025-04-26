@@ -1,6 +1,6 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Style from '../style/Style';
+import React from 'react'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import Style from '../style/Style'
 
 /**
  * EmergencyButton Component
@@ -10,14 +10,11 @@ import Style from '../style/Style';
  */
 const EmergencyButton = ({ onPress }) => {
     return (
-        <TouchableOpacity
-            style={styles.container}
-            onPress={onPress}
-        >
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Text style={styles.text}>Emergency Call</Text>
         </TouchableOpacity>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -41,6 +38,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-});
+})
 
-export default EmergencyButton; 
+export default EmergencyButton

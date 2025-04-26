@@ -36,17 +36,20 @@ export default Profile = () => {
 
     useEffect(() => {
         fetchUserData()
-        
-        // Add back handler
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            if (saving) {
-                return true; // Prevent back navigation while saving
-            }
-            return false;
-        });
 
-        return () => backHandler.remove();
-    }, [saving]);
+        // Add back handler
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            () => {
+                if (saving) {
+                    return true // Prevent back navigation while saving
+                }
+                return false
+            }
+        )
+
+        return () => backHandler.remove()
+    }, [saving])
 
     const fetchUserData = async () => {
         try {
@@ -91,10 +94,12 @@ export default Profile = () => {
                 })
 
                 // Update Redux store
-                dispatch(setUser({
-                    ...currentUser,
-                    displayName: name,
-                }))
+                dispatch(
+                    setUser({
+                        ...currentUser,
+                        displayName: name,
+                    })
+                )
 
                 setIsEditing(false)
             }
@@ -128,13 +133,13 @@ export default Profile = () => {
             })
     }
 
-  
-
     return (
         <SafeAreaView style={[Style.container]}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 <View style={styles.header}>
-                    <Text style={[Style.heading, Style.colorBlack]}>Profile</Text>
+                    <Text style={[Style.heading, Style.colorBlack]}>
+                        Profile
+                    </Text>
                 </View>
 
                 <View style={styles.content}>
@@ -146,7 +151,7 @@ export default Profile = () => {
                     )}
 
                     <InputField
-                        label="Name"
+                        label='Name'
                         value={name}
                         onChangeText={setName}
                         editable={isEditing && !saving}
@@ -154,40 +159,48 @@ export default Profile = () => {
                     <Spacing val={10} />
 
                     <InputField
-                        label="Email"
+                        label='Email'
                         value={email}
                         onChangeText={setEmail}
                         editable={isEditing && !saving}
-                        keyboardType="email-address"
+                        keyboardType='email-address'
                     />
                     <Spacing val={10} />
 
                     <InputField
-                        label="Emergency Phone"
+                        label='Emergency Phone'
                         value={emergencyPhone}
                         onChangeText={setEmergencyPhone}
                         editable={isEditing && !saving}
-                        keyboardType="phone-pad"
+                        keyboardType='phone-pad'
                     />
                     <Spacing val={20} />
 
                     {isEditing ? (
                         <>
                             <TouchableOpacity
-                                style={[styles.saveButton, saving && styles.disabledButton]}
+                                style={[
+                                    styles.saveButton,
+                                    saving && styles.disabledButton,
+                                ]}
                                 onPress={handleUpdateProfile}
                                 disabled={saving}
                             >
                                 {saving ? (
-                                    <ActivityIndicator color="white" />
+                                    <ActivityIndicator color='white' />
                                 ) : (
-                                    <Text style={styles.buttonText}>Save Changes</Text>
+                                    <Text style={styles.buttonText}>
+                                        Save Changes
+                                    </Text>
                                 )}
                             </TouchableOpacity>
                             <Spacing val={10} />
                             <TouchableOpacity
                                 onPress={() => setIsEditing(false)}
-                                style={[styles.cancelButton, saving && styles.disabledButton]}
+                                style={[
+                                    styles.cancelButton,
+                                    saving && styles.disabledButton,
+                                ]}
                                 disabled={saving}
                             >
                                 <Text style={styles.buttonText}>Cancel</Text>
@@ -205,7 +218,10 @@ export default Profile = () => {
                     <Spacing val={20} />
                     <TouchableOpacity
                         onPress={onLogout}
-                        style={[styles.logoutButton, saving && styles.disabledButton]}
+                        style={[
+                            styles.logoutButton,
+                            saving && styles.disabledButton,
+                        ]}
                         disabled={saving}
                     >
                         <Text style={styles.logoutText}>Logout</Text>

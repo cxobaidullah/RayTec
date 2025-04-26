@@ -1,4 +1,4 @@
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from '@react-native-community/geolocation'
 
 /**
  * Get current position of the user
@@ -14,9 +14,9 @@ export const getCurrentPosition = () => {
                 timeout: 15000,
                 maximumAge: 10000,
             }
-        );
-    });
-};
+        )
+    })
+}
 
 /**
  * Sample nearby locations data
@@ -65,4 +65,4 @@ export const nearbyLocations = {
             image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500',
         },
     ],
-}; 
+}

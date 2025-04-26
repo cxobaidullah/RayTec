@@ -11,7 +11,7 @@ const SplashScreen = ({}) => {
     const navigation = useNavigation()
 
     const dispatch = useDispatch()
-    const userRedx = useSelector((state) => state?.user?.user);
+    const userRedx = useSelector((state) => state?.user?.user)
 
     const onAuthStateChanged = (user) => {
         setTimeout(() => {
@@ -47,7 +47,7 @@ const SplashScreen = ({}) => {
 
         const userData = {
             ...user,
-            ...userRedx
+            ...userRedx,
         }
         dispatch(setUser(userData))
 

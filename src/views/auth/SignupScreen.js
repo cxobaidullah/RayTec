@@ -72,7 +72,7 @@ export default SignupScreen = ({}) => {
                     role: userRole,
                     uid: getAuth()?.currentUser?.uid,
                     name: name,
-                    emergencyPhone: emergencyPhone
+                    emergencyPhone: emergencyPhone,
                 })
                 dispatch(setUser(currentUser))
                 setLoading(false)

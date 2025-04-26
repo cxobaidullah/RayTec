@@ -14,7 +14,8 @@ export default HomeTabs = () => {
             screenOptions={{
                 tabBarLabelStyle: { fontSize: 16 }, // Optional: Adjust font size
                 tabBarStyle: styles.tabBar, // Apply custom styles
-            }}>
+            }}
+        >
             {/* <Tab.Screen
                 name='Task'
                 component={UserTasks}
