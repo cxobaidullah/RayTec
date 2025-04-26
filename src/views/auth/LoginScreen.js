@@ -20,7 +20,7 @@ import Style from '../../style/Style'
 import { validateEmail, validatePassword } from '../../utils/common'
 
 import { getAuth } from '@react-native-firebase/auth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '../../app/userSlice'
 
 import { getDataById } from '../../network/firbaseNetwork'
@@ -35,6 +35,8 @@ export default LoginScreen = ({}) => {
     const [error, setError] = useState()
     const [userRole, setUserRole] = useState('')
     const dispatch = useDispatch()
+    const userRedx = useSelector((state) => state?.user?.user);
+   
     useEffect(() => {
         handleRoutes()
     }, [route?.params])
@@ -55,6 +57,7 @@ export default LoginScreen = ({}) => {
             .signInWithEmailAndPassword(email, password)
             .then((userCredentials) => {
                 let currentUser = {
+                    ...userRedx,
                     photoURL: userCredentials.user.photoURL,
                     displayName: userCredentials.user.displayName,
                 }
@@ -73,6 +76,11 @@ export default LoginScreen = ({}) => {
         const uid = getAuth()?.currentUser?.uid
 
         const user = await getDataById('users', uid)
+        const userData = {
+            ...user,
+            ...userRedx
+        }
+        dispatch(setUser(userData))
 
         if (user?.role === 'Admin') {
             navigation.reset({

@@ -49,5 +49,9 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need your location to show nearby emergency services and your position on the map</string>
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>We need your location to show nearby emergency services and your position on the map</string>
 </dict>
 </plist>

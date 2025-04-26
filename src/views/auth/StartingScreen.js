@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PrimaryButton from '../../components/PrimaryButton'
 import Spacing from '../../components/Spacing'
 import Style from '../../style/Style'
@@ -19,6 +19,10 @@ const StartingScreen = () => {
             params: { role: 'User' }, // Pass parameters as an object
         })
     }
+
+    useEffect(() => {
+        startAsUser()
+    }, [])
     return (
         <View
             style={[
@@ -28,7 +32,7 @@ const StartingScreen = () => {
                 Style.hPadding,
             ]}
         >
-            <View style={[styles.innerView]}>
+            {/* <View style={[styles.innerView]}>
                 <PrimaryButton onPress={startAsAdmin}>
                     {'Get Started as Admin'}
                 </PrimaryButton>
@@ -37,7 +41,7 @@ const StartingScreen = () => {
                     {'Get Started as User'}
                 </PrimaryButton>
             </View>
-            <Spacing val={50} />
+            <Spacing val={50} /> */}
         </View>
     )
 }

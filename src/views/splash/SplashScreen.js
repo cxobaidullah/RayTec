@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '../../app/userSlice'
 import Color from '../../style/Color'
 import { getAuth } from '@react-native-firebase/auth'
@@ -11,6 +11,7 @@ const SplashScreen = ({}) => {
     const navigation = useNavigation()
 
     const dispatch = useDispatch()
+    const userRedx = useSelector((state) => state?.user?.user);
 
     const onAuthStateChanged = (user) => {
         setTimeout(() => {
@@ -43,6 +44,12 @@ const SplashScreen = ({}) => {
         const uid = getAuth()?.currentUser?.uid
 
         const user = await getDataById('users', uid)
+
+        const userData = {
+            ...user,
+            ...userRedx
+        }
+        dispatch(setUser(userData))
 
         if (user?.role === 'Admin') {
             navigation.reset({
