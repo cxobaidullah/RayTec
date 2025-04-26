@@ -26,6 +26,7 @@ export default SignupScreen = ({}) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [emergencyPhone, setEmergencyPhone] = useState('')
     const [loading, setLoading] = useState()
     const [error, setError] = useState()
     const [userRole, setUserRole] = useState('')
@@ -42,7 +43,8 @@ export default SignupScreen = ({}) => {
         if (
             !validateEmail(email) ||
             !validatePassword(password) ||
-            name.length < 4
+            name.length < 4 ||
+            emergencyPhone.length < 10
         ) {
             setValidation(true)
             return
@@ -70,6 +72,7 @@ export default SignupScreen = ({}) => {
                     role: userRole,
                     uid: getAuth()?.currentUser?.uid,
                     name: name,
+                    emergencyPhone: emergencyPhone
                 })
                 dispatch(setUser(currentUser))
                 setLoading(false)
@@ -139,6 +142,21 @@ export default SignupScreen = ({}) => {
                     error={
                         validation && !validatePassword(password)
                             ? 'Password should be of 5 letters minimum'
+                            : null
+                    }
+                />
+                <Spacing val={10} />
+                <InputField
+                    label={'Emergency Phone Number'}
+                    placeholder='+1234567890'
+                    keyboard={'phone-pad'}
+                    value={emergencyPhone}
+                    onChangeText={(text) => {
+                        setEmergencyPhone(text)
+                    }}
+                    error={
+                        validation && emergencyPhone.length < 10
+                            ? 'Please provide a valid phone number'
                             : null
                     }
                 />

@@ -10,18 +10,27 @@ const Tab = createBottomTabNavigator()
 export default HomeTabs = () => {
     return (
         <Tab.Navigator
-            initialRouteName='Task'
+            initialRouteName='Home'
             screenOptions={{
                 tabBarLabelStyle: { fontSize: 16 }, // Optional: Adjust font size
                 tabBarStyle: styles.tabBar, // Apply custom styles
-            }}
-        >
-            <Tab.Screen
+            }}>
+            {/* <Tab.Screen
                 name='Task'
                 component={UserTasks}
                 options={{
                     headerShown: false,
                     tabBarLabel: '📅 Task', // Emoji-based icon
+                    tabBarIcon: () => null, // Disable default icon
+                }}
+            /> */}
+
+            <Tab.Screen
+                name='Home'
+                component={HomeScreen}
+                options={{
+                    headerShown: false,
+                    tabBarLabel: '🏠 Home', // Emoji-based icon
                     tabBarIcon: () => null, // Disable default icon
                 }}
             />
